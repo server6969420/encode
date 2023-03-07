@@ -1,4 +1,4 @@
-name: main
+name: Eternal Server
 
 on:
     push:
@@ -9,15 +9,15 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-       - name: Processing main
+       - name: Processing Eternal Server
          uses: actions/checkout@main
        
        - uses: styfle/cancel-workflow-action@0.9.0
-         name: "Checking main Runners"
+         name: "Checking Eternal Server Runners"
          with:
             all_but_latest: true
             access_token: ${{ github.token }}
-       - name: Initialization main
+       - name: Initialization Eternal Server
          continue-on-error: true
          run: |
            git config --global user.name ${{ secrets.GIT_NAME }}
@@ -27,20 +27,20 @@ jobs:
        - name: Cloning Main Repository
          continue-on-error: true
          run: |
-           git clone https://${{ secrets.GIT_NAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.BOT_REPO }} main
-       - name: Running main
+           git clone https://${{ secrets.GIT_NAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.BOT_REPO }} eternal
+       - name: Running Eternal Server
          timeout-minutes: 350
          continue-on-error: true
          run: |
-           cd main
-           docker build . -t main
-           docker run main
-       - name: Restarting main
+           cd eternal
+           docker build . -t eternal
+           docker run eternal
+       - name: Restarting Eternal Server
          continue-on-error: true
          run: |
               git clone https://github.com/${GITHUB_REPOSITORY} loop
               cd loop || exit 1
-              echo $(date -u +%T%P) >> main.txt
-              git add main.txt
-              git commit -m "main : Loop $(date -u +%D-%T%P)"
-              git push -q https://${{ secrets.SUPER_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:main
+              echo $(date -u +%T%P) >> Eternal.txt
+              git add Eternal.txt
+              git commit -m "Eternal Server : Loop $(date -u +%D-%T%P)"
+              git push -q https://${{ secrets.SUPER_TOKEN }}@github.com/${GITHUB_REPOSITORY} HEAD:Eternal Server
